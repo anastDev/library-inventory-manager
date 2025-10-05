@@ -1,45 +1,32 @@
-package main.java.dto;
+package main.dto;
 
-import java.time.LocalDate;
-
-public class BookReadOnlyDTO {
-    private Long id;
+public class BookInsertDTO {
     private String isbn;
     private String title;
     private String author;
     private String genre;
-    private LocalDate publishYear;
     private String description;
+    private int publishYear;
     private int availableCopies;
 
-    public BookReadOnlyDTO() {
+    public BookInsertDTO() {
 
     }
 
-    public BookReadOnlyDTO(Long id,
-                           String isbn,
-                           String title,
-                           String author,
-                           String genre,
-                           LocalDate publishYear,
-                           String description,
-                           int availableCopies) {
-        this.id = id;
+    public BookInsertDTO(String isbn,
+                         String title,
+                         String author,
+                         String genre,
+                         String description,
+                         int publishYear,
+                         int availableCopies) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.genre = genre;
-        this.publishYear = publishYear;
         this.description = description;
+        this.publishYear = publishYear;
         this.availableCopies = availableCopies;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getIsbn() {
@@ -74,11 +61,11 @@ public class BookReadOnlyDTO {
         this.genre = genre;
     }
 
-    public LocalDate getPublishYear() {
+    public int getPublishYear() {
         return publishYear;
     }
 
-    public void setPublishYear(LocalDate publishYear) {
+    public void setPublishYear(int publishYear) {
         this.publishYear = publishYear;
     }
 
@@ -100,14 +87,13 @@ public class BookReadOnlyDTO {
 
     @Override
     public String toString() {
-        return "BookReadOnlyDTO{" +
-                "id=" + id +
-                ", isbn='" + isbn + '\'' +
+        return "BookInsertDTO{" +
+                "isbn='" + isbn + '\'' +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", genre='" + genre + '\'' +
-                ", publishYear=" + publishYear +
                 ", description='" + description + '\'' +
+                ", publishYear=" + publishYear +
                 ", availableCopies=" + availableCopies +
                 '}';
     }

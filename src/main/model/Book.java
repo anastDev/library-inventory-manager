@@ -1,34 +1,48 @@
-package main.java.dto;
+package main.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
-public class BookInsertDTO {
+public class Book {
+    private Long id;
     private String isbn;
     private String title;
     private String author;
     private String genre;
-    private LocalDate publishYear;
     private String description;
+    private int publishYear;
     private int availableCopies;
 
-    public BookInsertDTO() {
+
+    public Book() {
 
     }
 
-    public BookInsertDTO(String isbn,
-                         String title,
-                         String author,
-                         String genre,
-                         LocalDate publishYear,
-                         String description,
-                         int availableCopies) {
+    public Book(Long id,
+                String isbn,
+                String title,
+                String author,
+                String genre,
+                String description,
+                int yearOfPublish,
+                int availableCopies
+               ) {
+        this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.genre = genre;
-        this.publishYear = publishYear;
         this.description = description;
+        this.publishYear = yearOfPublish;
         this.availableCopies = availableCopies;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getIsbn() {
@@ -63,11 +77,11 @@ public class BookInsertDTO {
         this.genre = genre;
     }
 
-    public LocalDate getPublishYear() {
+    public int getPublishYear() {
         return publishYear;
     }
 
-    public void setPublishYear(LocalDate publishYear) {
+    public void setPublishYear(int publishYear) {
         this.publishYear = publishYear;
     }
 
@@ -87,16 +101,30 @@ public class BookInsertDTO {
         this.availableCopies = availableCopies;
     }
 
+
     @Override
     public String toString() {
-        return "BookInsertDTO{" +
-                "isbn='" + isbn + '\'' +
+        return "Book{" +
+                "id=" + id +
+                ", isbn='" + isbn + '\'' +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", genre='" + genre + '\'' +
-                ", publishYear=" + publishYear +
                 ", description='" + description + '\'' +
+                ", yearOfPublish=" + publishYear +
                 ", availableCopies=" + availableCopies +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(getIsbn(), book.getIsbn());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIsbn());
     }
 }

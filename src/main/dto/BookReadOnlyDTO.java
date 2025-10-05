@@ -1,37 +1,34 @@
-package main.java.model;
+package main.dto;
 
-import java.time.LocalDate;
-import java.util.Objects;
-
-public class Book {
+public class BookReadOnlyDTO {
     private Long id;
     private String isbn;
     private String title;
     private String author;
     private String genre;
-    private LocalDate publishYear;
     private String description;
+    private int publishYear;
     private int availableCopies;
 
-
-    public Book() {
+    public BookReadOnlyDTO() {
 
     }
 
-    public Book(Long id, String isbn, String title,
-                String author,
-                String genre,
-                LocalDate yearOfPublish,
-                String description,
-                int availableCopies,
-                boolean isAvailable) {
+    public BookReadOnlyDTO(Long id,
+                           String isbn,
+                           String title,
+                           String author,
+                           String genre,
+                           String description,
+                           int publishYear,
+                           int availableCopies) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.genre = genre;
-        this.publishYear = yearOfPublish;
         this.description = description;
+        this.publishYear = publishYear;
         this.availableCopies = availableCopies;
     }
 
@@ -75,11 +72,11 @@ public class Book {
         this.genre = genre;
     }
 
-    public LocalDate getPublishYear() {
+    public int getPublishYear() {
         return publishYear;
     }
 
-    public void setPublishYear(LocalDate publishYear) {
+    public void setPublishYear(int publishYear) {
         this.publishYear = publishYear;
     }
 
@@ -99,30 +96,17 @@ public class Book {
         this.availableCopies = availableCopies;
     }
 
-
     @Override
     public String toString() {
-        return "Book{" +
+        return "BookReadOnlyDTO{" +
                 "id=" + id +
                 ", isbn='" + isbn + '\'' +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", genre='" + genre + '\'' +
-                ", yearOfPublish=" + publishYear +
                 ", description='" + description + '\'' +
+                ", publishYear=" + publishYear +
                 ", availableCopies=" + availableCopies +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return Objects.equals(getIsbn(), book.getIsbn());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getIsbn());
     }
 }
