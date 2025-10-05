@@ -24,6 +24,4 @@ hs_err_pid*
 replay_pid*
 
 # JetBrains / IntelliJ
-../.idea/
-*.iml
-
+.idea/
