@@ -24,6 +24,6 @@ hs_err_pid*
 replay_pid*
 
 # JetBrains / IntelliJ
-.idea/
-library-inventory-manager.iml
+../.idea/
+*.iml
 
