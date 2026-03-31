@@ -11,6 +11,8 @@ public class Book {
     private String genre;
     private String description;
     private int publishYear;
+
+    private int numberOfPages;
     private int availableCopies;
 
 
@@ -25,6 +27,7 @@ public class Book {
                 String genre,
                 String description,
                 int yearOfPublish,
+                int numberOfPages,
                 int availableCopies
                ) {
         this.id = id;
@@ -34,6 +37,7 @@ public class Book {
         this.genre = genre;
         this.description = description;
         this.publishYear = yearOfPublish;
+        this.numberOfPages = numberOfPages;
         this.availableCopies = availableCopies;
     }
 
@@ -93,6 +97,15 @@ public class Book {
         this.description = description;
     }
 
+    public int getNumberOfPages() {
+        return numberOfPages;
+    }
+
+    public void setNumberOfPages(int numberOfPages) {
+        this.numberOfPages = numberOfPages;
+    }
+
+
     public int getAvailableCopies() {
         return availableCopies;
     }
@@ -112,6 +125,7 @@ public class Book {
                 ", genre='" + genre + '\'' +
                 ", description='" + description + '\'' +
                 ", yearOfPublish=" + publishYear +
+                ", numberOfPages=" + numberOfPages +
                 ", availableCopies=" + availableCopies +
                 '}';
     }

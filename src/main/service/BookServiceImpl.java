@@ -1,6 +1,7 @@
 package main.service;
 
 import main.core.exceptions.BookAlreadyExists;
+import main.core.exceptions.BookNotAvailableException;
 import main.core.mapper.Mapper;
 import main.dao.IBookDAO;
 import main.dto.BookInsertDTO;
@@ -11,6 +12,7 @@ import main.model.Book;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class BookServiceImpl implements IBookService {
     private final IBookDAO bookDAO;
@@ -31,12 +33,12 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public List<BookReadOnlyDTO> searchBookByTitle(String title) throws BookNotFoundException {
-//        TODO: Review the code as it is recursive indefinitely
         try {
             Book book = bookDAO
                     .getByTitle(title)
                     .orElseThrow(()-> new BookNotFoundException("Book with " + title + "not found."));
-            return searchBookByTitle(title);
+            BookReadOnlyDTO dto = Mapper.mapToReadOnlyDTO(book);
+            return List.of(dto);
         } catch (BookNotFoundException e) {
             System.out.printf("%s. Book with title: %s not found. \n%s", LocalDateTime.now(), title, e);
            throw e;
@@ -59,7 +61,41 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public void borrowBook(String title) {
+    public void borrowBook(String title) throws BookNotFoundException, BookNotAvailableException {
+        Book book = bookDAO
+                .getByTitle(title)
+                .orElseThrow(()-> new BookNotFoundException("Book with title: " + title + "not found."));
 
+        if(book.getAvailableCopies() == 0) {
+            throw new BookNotAvailableException("Book with title: " + title + "is not available");
+        }
+        book.setAvailableCopies(book.getAvailableCopies() - 1);
+        bookDAO.save(book);
+    }
+
+    @Override
+    public List<BookReadOnlyDTO> getByGenre(String genre) throws BookNotFoundException {
+       try {
+           List<Book> books = bookDAO.getByGenre(genre);
+
+           if (books.isEmpty()) {
+               throw new BookNotFoundException("Book with genre: " + genre + "not found");
+           }
+
+           return books.stream()
+                   .map(Mapper::mapToReadOnlyDTO)
+                   .collect(Collectors.toList());
+       } catch(BookNotFoundException e) {
+           System.out.printf("%s. No books found for genre: %s. \n%s", LocalDateTime.now(), genre, e);
+           throw e;
+       }
+    }
+
+    @Override
+    public List<BookReadOnlyDTO> getAllOfBooks()  throws BookNotFoundException{
+        return bookDAO.getAllBooks()
+                .stream()
+                .map(Mapper::mapToReadOnlyDTO)
+                .collect(Collectors.toList());
     }
 }

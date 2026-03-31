@@ -7,20 +7,14 @@ import java.util.stream.Collectors;
 
 public class BookDAOImpl implements IBookDAO{
     private static final Map<Long, Book> books = new HashMap<>();
+    private static Long idCounter = 0L;
 
 
     @Override
     public boolean save(Book book) {
-       return books.putIfAbsent(book.getId(), book) == null;
-    }
-
-    @Override
-    public Optional<Book> searchBook(String title) {
-        return books
-                .values()
-                .stream()
-                .filter(b-> b.getTitle().equals(title))
-                .findFirst();
+       idCounter++;
+       book.setId(idCounter);
+        return books.putIfAbsent(book.getId(), book) == null;
     }
 
     @Override
@@ -63,11 +57,12 @@ public class BookDAOImpl implements IBookDAO{
     }
 
     @Override
-    public boolean getByGenre(String genre) {
-        return books
-                .values()
+    public List<Book> getByGenre(String genre) {
+        return books.values()
                 .stream()
-                .anyMatch(b -> b.getGenre().equals(genre));
+                .filter(b -> b.getGenre().equals(genre))
+                .sorted(Comparator.comparing(Book::getTitle))
+                .collect(Collectors.toList());
     }
 
 }

@@ -7,6 +7,7 @@ public class BookInsertDTO {
     private String genre;
     private String description;
     private int publishYear;
+    private int numberOfPages;
     private int availableCopies;
 
     public BookInsertDTO() {
@@ -19,6 +20,7 @@ public class BookInsertDTO {
                          String genre,
                          String description,
                          int publishYear,
+                         int numberOfPages,
                          int availableCopies) {
         this.isbn = isbn;
         this.title = title;
@@ -26,6 +28,7 @@ public class BookInsertDTO {
         this.genre = genre;
         this.description = description;
         this.publishYear = publishYear;
+        this.numberOfPages = numberOfPages;
         this.availableCopies = availableCopies;
     }
 
@@ -77,6 +80,14 @@ public class BookInsertDTO {
         this.description = description;
     }
 
+    public int getNumberOfPages() {
+        return numberOfPages;
+    }
+
+    public void setNumberOfPages(int numberOfPages) {
+        this.numberOfPages = numberOfPages;
+    }
+
     public int getAvailableCopies() {
         return availableCopies;
     }
@@ -94,6 +105,7 @@ public class BookInsertDTO {
                 ", genre='" + genre + '\'' +
                 ", description='" + description + '\'' +
                 ", publishYear=" + publishYear +
+                ", numberOfPages=" + numberOfPages +
                 ", availableCopies=" + availableCopies +
                 '}';
     }
