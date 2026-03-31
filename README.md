@@ -113,7 +113,7 @@ src/
 
 ## 🛠️ Tech Stack
 
-- **Language:** Java 11+
+- **Language:** Java 17
 - **Storage:** In-memory HashMap
 
 
